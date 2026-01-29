@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import './HistoryPage.css';
+import '.././harshal.css'
 
 export function HistoryPage({ isLoggedIn }) {
   const navigate = useNavigate();
@@ -74,7 +75,7 @@ export function HistoryPage({ isLoggedIn }) {
             <div key={month} className="timeline-section">
               <div className="timeline-month">{month}</div>
               <div className="timeline-items">
-                {items.map((item, index) => (
+                {items.map((item) => (
                   <div key={item.id} className="timeline-item">
                     <div className="timeline-marker" style={{ background: getStatusColor(item.status) }}>
                       {getStatusIcon(item.status)}

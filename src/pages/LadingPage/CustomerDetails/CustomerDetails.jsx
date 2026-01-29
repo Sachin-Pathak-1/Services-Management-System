@@ -1,9 +1,8 @@
 import './CustomerDetails.css';
-import { useParams, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import '.././harshal.css'
 
 export function CustomerDetails() {
-  const { id } = useParams();
   const navigate = useNavigate();
   
   const customerData = {

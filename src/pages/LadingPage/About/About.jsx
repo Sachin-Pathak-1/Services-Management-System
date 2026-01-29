@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import '.././harshal.css'
 import './About.css';
 
 export function About() {

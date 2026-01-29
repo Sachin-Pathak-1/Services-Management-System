@@ -1,0 +1,13 @@
+footer {
+    background-color: rgb(60, 60, 60);   
+    padding: 16px;
+}
+
+footer div{
+    margin-inline:auto;
+    text-align: center;
+}
+
+p {
+    color: white;
+}

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import './Services.css';
+import '.././harshal.css'
 
 export function Services() {
   const services = [

@@ -1,12 +1,17 @@
 
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import CustomerList from './pages/CustomerList';
+import CustomerDetails from './pages/CustomerDetails';
 
 function App() {
-
   return (
-     <h1 class="text-3xl font-bold underline">
-    Hello world!
-  </h1>
-  )
+    <Router>
+      <Routes>
+        <Route path="/" element={<CustomerList />} />
+        <Route path="/customer/:id" element={<CustomerDetails />} />
+      </Routes>
+    </Router>
+  );
 }
 
 export default App

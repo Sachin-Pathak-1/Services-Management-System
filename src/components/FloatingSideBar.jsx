@@ -4,7 +4,15 @@ import "./FloatingSideBar.css";
 
 export function FloatingSideBar() {
 
-  const [collapsed, setCollapsed] = useState(false);
+  // persist collapsed state across route changes until user toggles
+  const [collapsed, setCollapsed] = useState(() => {
+    try {
+      const stored = localStorage.getItem("floatingSidebarCollapsed");
+      return stored ? JSON.parse(stored) : false;
+    } catch (e) {
+      return false;
+    }
+  });
 
   return (
     <div className={collapsed ? "sidebar collapsed" : "sidebar"}>
@@ -12,7 +20,11 @@ export function FloatingSideBar() {
       {/* TOGGLE BUTTON */}
       <button
         className="toggle-btn"
-        onClick={() => setCollapsed(!collapsed)}
+        onClick={() => {
+          const next = !collapsed;
+          try { localStorage.setItem("floatingSidebarCollapsed", JSON.stringify(next)); } catch (e) {}
+          setCollapsed(next);
+        }}
       >
         ☰
       </button>
@@ -55,7 +67,31 @@ export function FloatingSideBar() {
         </li>
 
         <li>
-          <a href="#contact" className="sidebar-link">Appointments</a>
+          <Link to="/profile">
+            <span className="icon">👤</span>
+            {!collapsed && "Profile"}
+          </Link>
+        </li>
+
+        <li>
+          <Link to="/paymenthistory">
+            <span className="icon">💸</span>
+            {!collapsed && "Billing"}
+          </Link>
+        </li>
+
+        <li>
+          <Link to="/support">
+            <span className="icon">👨🏿‍💻</span>
+            {!collapsed && "Support"}
+          </Link>
+        </li>
+
+        <li>
+          <Link to="/staff">
+            <span className="icon">👥</span>
+            {!collapsed && "Staff"}
+          </Link>
         </li>
 
       </ul>

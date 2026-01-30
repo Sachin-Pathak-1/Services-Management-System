@@ -8,7 +8,9 @@ body {
 .admin-layout {
   display: flex;
   min-height: 100vh;
-  background-color: #f3f4f6;
+  width: 85%;
+  margin: auto;
+  /* background-color: #f3f4f6; */
 }
 
 .admin-main-content {

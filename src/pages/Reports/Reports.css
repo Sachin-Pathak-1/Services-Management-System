@@ -1,10 +1,12 @@
 /* PAGE */
 
 .reports-page {
-  background: #f5f7fb;
+  /* background: #f5f7fb; */
   min-height: 100vh;
   padding: 40px;
   margin-left: 10px;
+  width: 85%;
+  margin: auto;
 }
 
 /* HEADER */

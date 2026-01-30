@@ -10,12 +10,19 @@
   box-shadow: 0 10px 25px rgba(0,0,0,0.2);
   transition: width 0.3s ease;
   z-index: 100;
+  height:70%;
+  overflow-y: scroll;
+  scrollbar-width: none;
 }
 
 /* COLLAPSED MODE */
 
 .sidebar.collapsed {
   width: 60px;
+}
+.sidebar a{
+    justify-content: center;
+
 }
 
 /* TOGGLE BUTTON */

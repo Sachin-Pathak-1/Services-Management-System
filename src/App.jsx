@@ -10,7 +10,6 @@ import { ActivityPage } from "./pages/LadingPage/Activity/ActivityPage.jsx";
 import { HistoryPage } from "./pages/LadingPage/History/HistoryPage.jsx";
 import { CustomerList } from "./pages/LadingPage/CustomerList/CustomerList.jsx";
 import { CustomerDetails } from "./pages/LadingPage/CustomerDetails/CustomerDetails.jsx";
-import AdminAppointments from "./pages/Appointments/Appointments.jsx";
 import { Home } from "./pages/LadingPage/Home/Home.jsx";
 
 import { Dashboard } from "./pages/Dashboard/Dashboard.jsx";
@@ -19,7 +18,10 @@ import { Reports } from "./pages/Reports/Reports.jsx";
 
 import { About } from "./pages/LadingPage/About/About.jsx";
 import { Contact } from "./pages/LadingPage/Contacts/Contact.jsx";
-import Profile from "./pages/Profile/Profile.jsx";
+import AdminAppointments from "./pages/Appointments/Appointments.jsx";
+import PaymentHistory from "./pages/BillingHistory/PaymentHistory.jsx";
+import { HelpPage } from "./pages/Support/HelpPage.jsx";
+import TeamManage from "./pages/Staff/TeamManage.jsx";
 
 function App() {
 
@@ -33,7 +35,11 @@ function App() {
     "/customers",
     "/profile",
     "/activity",
-    "/history"
+    "/history",
+    "/appointments",
+    "/paymenthistory",
+    "/support",
+    "/staff"
   ];
 
   const showSidebar = systemRoutes.some(route =>
@@ -84,19 +90,63 @@ function App() {
         currentUser={currentUser}
         setCurrentUser={setCurrentUser}
       />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/services" element={<Services services={services} setServices={setServices} />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/login" element={<LoginPage isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} setCurrentUser={setCurrentUser} />} />
-        <Route path="/profile" element={<ProfilePage isLoggedIn={isLoggedIn} currentUser={currentUser} />} />
-        <Route path="/activity" element={<ActivityPage isLoggedIn={isLoggedIn} />} />
-        <Route path="/history" element={<HistoryPage isLoggedIn={isLoggedIn} />} />
-        <Route path="/customers" element={<CustomerList />} />
-        <Route path="/customer/:id" element={<CustomerDetails />} />
-        <Route path="/dashboard" element={<Dashboard services={services} />} />
-      </Routes>
+
+      <div style={{ display: "flex" }}>
+
+        {showSidebar && <FloatingSideBar />}
+
+        <div style={{ flex: 1 }}>
+
+          <Routes>
+
+            {/* LANDING */}
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+
+            {/* AUTH */}
+            <Route
+              path="/login"
+              element={
+                <LoginPage
+                  isLoggedIn={isLoggedIn}
+                  setIsLoggedIn={setIsLoggedIn}
+                  setCurrentUser={setCurrentUser}
+                />
+              }
+            />
+
+            {/* SYSTEM */}
+            <Route path="/dashboard" element={<Dashboard services={services} />} />
+
+            <Route
+              path="/services"
+              element={<Services services={services} setServices={setServices} />}
+            />
+
+            <Route
+              path="/reports"
+              element={<Reports services={services} setServices={setServices} />}
+            />
+
+            <Route path="/customers" element={<CustomerList />} />
+            <Route path="/customer/:id" element={<CustomerDetails />} />
+
+            <Route path="/profile" element={<ProfilePage isLoggedIn={isLoggedIn} currentUser={currentUser} />} />
+            <Route path="/activity" element={<ActivityPage isLoggedIn={isLoggedIn} />} />
+            <Route path="/history" element={<HistoryPage isLoggedIn={isLoggedIn} />} />
+            <Route path="/appointments" element={<AdminAppointments/>}/>
+            <Route path="/profile" element={<ProfilePage/>} />
+            <Route path="/paymenthistory" element={<PaymentHistory/>} />
+            <Route path="/support" element={<HelpPage/>} />
+            <Route path="/staff" element={<TeamManage/>} />
+
+
+          </Routes>
+
+        </div>
+
+      </div>
     </>
   );
 }

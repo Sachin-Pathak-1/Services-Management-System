@@ -89,14 +89,16 @@ export default function AdminAppointments() {
             <table>
               <thead>
                 <tr>
-                  <th>ID</th>
-                  <th>User Name</th>
+                  <b>
+                  <th>ID</th></b>
+                 <b> <th>User Name</th></b>
                   <th>Email</th>
                   <th>Date</th>
                   <th>Time</th>
                   <th>Service</th>
                   <th>Status</th>
                   <th>Actions</th>
+                  
                 </tr>
               </thead>
               <tbody>

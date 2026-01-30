@@ -7,11 +7,13 @@ import { ActivityPage } from "./pages/LadingPage/Activity/ActivityPage.jsx";
 import { HistoryPage } from "./pages/LadingPage/History/HistoryPage.jsx";
 import { CustomerList } from "./pages/LadingPage/CustomerList/CustomerList.jsx";
 import { CustomerDetails } from "./pages/LadingPage/CustomerDetails/CustomerDetails.jsx";
+import AdminAppointments from "./pages/Appointments/Appointments.jsx";
 import { Home } from "./pages/LadingPage/Home/Home.jsx";
 import { Dashboard } from "./pages/Dashboard/Dashboard.jsx";
 import { Services } from "./pages/LadingPage/Services/Services.jsx";
 import { About } from "./pages/LadingPage/About/About.jsx";
 import { Contact } from "./pages/LadingPage/Contacts/Contact.jsx";
+import Profile from "./pages/Profile/Profile.jsx";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -32,11 +34,13 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<LoginPage isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} setCurrentUser={setCurrentUser} />} />
         <Route path="/profile" element={<ProfilePage isLoggedIn={isLoggedIn} currentUser={currentUser} />} />
+        <Route path="/dashboardprofile" element={<Profile />} />
         <Route path="/activity" element={<ActivityPage isLoggedIn={isLoggedIn} />} />
         <Route path="/history" element={<HistoryPage isLoggedIn={isLoggedIn} />} />
         <Route path="/customers" element={<CustomerList />} />
         <Route path="/customer/:id" element={<CustomerDetails />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/appointments" element={<AdminAppointments />} />
       </Routes>
     </>
   )

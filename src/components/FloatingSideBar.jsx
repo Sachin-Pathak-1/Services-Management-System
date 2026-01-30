@@ -14,7 +14,7 @@ export function FloatingSideBar() {
           <a href="/customers" className="sidebar-link">Clients</a>
         </li>
         <li>
-          <a href="#contact" className="sidebar-link">Appointments</a>
+          <a href="/appointments" className="sidebar-link">Appointments</a>
         </li>
       </ul>
     </div>

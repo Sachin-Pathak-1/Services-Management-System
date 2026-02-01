@@ -17,6 +17,7 @@ import { LPServices } from "./pages/LadingPage/Services/Services.jsx";
 import { Dashboard } from "./pages/Dashboard/Dashboard.jsx";
 import { Services } from "./pages/Services/Services.jsx";
 import { Reports } from "./pages/Reports/Reports.jsx";
+import { Settings } from "./pages/Settings.jsx";
 
 import { About } from "./pages/LadingPage/About/About.jsx";
 import { Contact } from "./pages/LadingPage/Contacts/Contact.jsx";
@@ -41,7 +42,8 @@ function App() {
     "/appointments",
     "/paymenthistory",
     "/support",
-    "/staff"
+    "/staff",
+    "/settings"
   ];
 
   const showSidebar = systemRoutes.some(route =>
@@ -145,6 +147,7 @@ function App() {
             <Route path="/paymenthistory" element={<PaymentHistory/>} />
             <Route path="/support" element={<HelpPage/>} />
             <Route path="/staff" element={<TeamManage/>} />
+            <Route path="/settings" element={<Settings/>} />
 
 
           </Routes>

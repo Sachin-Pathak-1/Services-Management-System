@@ -16,6 +16,7 @@ import { Home } from "./pages/LadingPage/Home/Home.jsx";
 import { LPServices } from "./pages/LadingPage/Services/Services.jsx";
 
 import { Dashboard } from "./pages/Dashboard/Dashboard.jsx";
+import { StaffDashboard } from "./pages/Dashboard/StaffDashboard.jsx";
 import { Services } from "./pages/Services/Services.jsx";
 import { Reports } from "./pages/Reports/Reports.jsx";
 import { Settings } from "./pages/Settings.jsx";
@@ -34,6 +35,7 @@ function App() {
   /* WHERE SIDEBAR SHOULD APPEAR */
   const systemRoutes = [
     "/dashboard",
+    "/staff-dashboard",
     "/services",
     "/reports",
     "/customers",
@@ -103,6 +105,7 @@ function App() {
 
             {/* SYSTEM */}
             <Route path="/dashboard" element={<Dashboard services={services} />} />
+            <Route path="/staff-dashboard" element={<StaffDashboard />} />
 
             <Route
               path="/services"

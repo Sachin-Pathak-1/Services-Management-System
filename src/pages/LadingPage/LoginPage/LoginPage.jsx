@@ -11,14 +11,11 @@ export function LoginPage({ setIsLoggedIn, setCurrentUser }) {
 
   const navigate = useNavigate();
 
-
   // ✅ REAL LOGIN (backend connected)
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     setError("");
 
-    // simple validations
     if (!email || !password) {
       setError("Please fill in all fields");
       return;
@@ -27,7 +24,7 @@ export function LoginPage({ setIsLoggedIn, setCurrentUser }) {
     setLoading(true);
 
     try {
-      // 1️⃣ login → get token
+      // 1️⃣ LOGIN
       const loginRes = await axios.post(
         "http://localhost:5000/api/auth/login",
         { email, password }
@@ -35,10 +32,10 @@ export function LoginPage({ setIsLoggedIn, setCurrentUser }) {
 
       const token = loginRes.data.token;
 
-      // 2️⃣ save token
+      // 2️⃣ SAVE TOKEN
       localStorage.setItem("token", token);
 
-      // 3️⃣ fetch profile
+      // 3️⃣ FETCH PROFILE
       const profileRes = await axios.get(
         "http://localhost:5000/api/user/profile",
         {
@@ -48,21 +45,26 @@ export function LoginPage({ setIsLoggedIn, setCurrentUser }) {
         }
       );
 
-      // 4️⃣ store user in app state
-      setCurrentUser(profileRes.data);
+      const user = profileRes.data;
+
+      // 4️⃣ STORE USER
+      setCurrentUser(user);
       setIsLoggedIn(true);
 
-      navigate("/");
+      // ✅ ROLE BASED REDIRECT
+      if (user.role === "admin") {
+        navigate("/dashboard");
+      } else {
+        navigate("/staff-dashboard");
+      }
 
     } catch (err) {
       console.log(err.response);
       setError(err.response?.data?.message || "Login failed");
-
     }
 
     setLoading(false);
   };
-
 
   return (
     <div className="login-page">

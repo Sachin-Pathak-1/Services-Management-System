@@ -21,14 +21,29 @@ router.post("/signup", async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    await User.create({
+    const user = await User.create({
       name,
       email,
       password: hashedPassword,
       role: role || "staff"   // ✅ default role
     });
 
-    res.json({ message: "Signup successful" });
+    const token = jwt.sign(
+      { id: user._id },
+      "mysecretkey",
+      { expiresIn: "7d" }
+    );
+
+    res.json({
+      message: "Signup successful",
+      token,
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role
+      }
+    });
 
   } catch (err) {
     console.error(err);

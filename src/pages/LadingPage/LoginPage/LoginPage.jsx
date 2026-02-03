@@ -2,8 +2,6 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import "./LoginPage.css";
-import "../SignupPage/SignupPage.jsx";
 
 export function LoginPage({ setIsLoggedIn, setCurrentUser }) {
   const [email, setEmail] = useState("");
@@ -69,67 +67,73 @@ export function LoginPage({ setIsLoggedIn, setCurrentUser }) {
   };
 
   return (
-    <div className="login-page">
-      <div className="login-container">
-        <div className="login-left">
-          <h1 className="login-title">Welcome Back</h1>
-          <p className="login-subtitle">
+    <div className="min-h-screen bg-[var(--background)] text-[var(--text)] flex items-center justify-center px-6 w-[35%] m-auto">
+      <div className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+        <div className="hidden md:block">
+          <h1 className="text-5xl md:text-6xl font-extrabold leading-tight text-[var(--text)]">
+            Welcome Back
+          </h1>
+          <p className="mt-4 text-lg text-[var(--gray-700)]">
             Sign in to your account to continue
           </p>
         </div>
 
-        <div className="login-right">
-          <div className="login-form-wrapper">
-
-            <div className="login-header">
-              <h2>Sign In</h2>
-              <p>Access your account</p>
+        <div className="w-full">
+          <div className="bg-[var(--gray-100)] border border-[var(--border-light)] rounded-2xl shadow-xl p-8 md:p-10">
+            <div className="mb-8">
+              <h2 className="text-3xl font-bold text-[var(--text)]">Sign In</h2>
+              <p className="text-sm text-[var(--gray-700)] mt-2">Access your account</p>
             </div>
 
-            {error && <div className="error-message">{error}</div>}
+            {error && (
+              <div className="mb-6 p-4 rounded-lg bg-[color:var(--danger)]/15 text-[var(--danger)] border border-[color:var(--danger)]/30">
+                {error}
+              </div>
+            )}
 
-            <form onSubmit={handleSubmit} className="login-form">
-
-              <div className="form-group">
-                <label>Email Address</label>
+            <form onSubmit={handleSubmit} className="space-y-5">
+              <div className="flex flex-col gap-2">
+                <label className="text-sm font-semibold text-[var(--text)]">Email Address</label>
                 <input
                   type="email"
                   value={email}
                   placeholder="your@email.com"
                   onChange={(e) => setEmail(e.target.value)}
                   disabled={loading}
+                  className="w-full px-4 py-3 rounded-lg border border-[var(--border-light)] bg-[var(--background)] text-[var(--text)] placeholder:text-[var(--gray-700)]/60 focus:outline-none focus:ring-2 focus:ring-[var(--primary)] disabled:opacity-70"
                 />
               </div>
 
-              <div className="form-group">
-                <label>Password</label>
+              <div className="flex flex-col gap-2">
+                <label className="text-sm font-semibold text-[var(--text)]">Password</label>
                 <input
                   type="password"
                   value={password}
                   placeholder="Enter your password"
                   onChange={(e) => setPassword(e.target.value)}
                   disabled={loading}
+                  className="w-full px-4 py-3 rounded-lg border border-[var(--border-light)] bg-[var(--background)] text-[var(--text)] placeholder:text-[var(--gray-700)]/60 focus:outline-none focus:ring-2 focus:ring-[var(--primary)] disabled:opacity-70"
                 />
               </div>
 
               <button
                 type="submit"
-                className="btn-submit"
+                className="w-full py-3 rounded-lg font-semibold text-white bg-[var(--primary)] hover:opacity-95 transition disabled:opacity-70 disabled:cursor-not-allowed"
                 disabled={loading}
               >
                 {loading ? "Signing in..." : "Sign In"}
               </button>
-              <p className="text-center text-gray-600 dark:text-gray-400 text-sm mt-6">
+
+              <p className="text-center text-sm text-[var(--gray-700)] mt-6">
                 don't have an account?{" "}
                 <Link
                   to="/signup"
-                  className="text-blue-500 dark:text-blue-400 hover:text-blue-600 dark:hover:text-blue-300 font-semibold transition-colors"
+                  className="text-[var(--primary)] hover:underline font-semibold transition-colors"
                 >
                   Sign Up
                 </Link>
               </p>
             </form>
-
           </div>
         </div>
       </div>

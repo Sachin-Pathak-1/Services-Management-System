@@ -99,30 +99,30 @@ export function SignupPage({ setIsLoggedIn, setCurrentUser }) {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex items-center justify-center px-6">
+    <div className="min-h-screen bg-[var(--background)] flex items-center justify-center px-6">
       <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-16">
 
         {/* LEFT */}
         <div className="hidden md:block">
-          <h1 className="text-6xl font-extrabold text-slate-900">
+          <h1 className="text-6xl font-extrabold text-[var(--text)]">
             Join Us Today
           </h1>
-          <p className="mt-6 text-lg text-slate-600">
+          <p className="mt-6 text-lg text-[var(--gray-700)]">
             Create an account to access our service platform.
           </p>
         </div>
 
         {/* RIGHT */}
-        <div className="bg-white rounded-2xl shadow-xl p-10 max-w-md mx-auto w-full">
-          <h2 className="text-3xl font-bold text-slate-900 mb-2">
+        <div className="bg-[var(--gray-100)] rounded-2xl shadow-xl p-10 max-w-md mx-auto w-full border border-[var(--border-light)]">
+          <h2 className="text-3xl font-bold text-[var(--text)] mb-2">
             Create Account
           </h2>
-          <p className="text-slate-500 mb-8">
+          <p className="text-[var(--gray-700)] mb-8">
             Fill in your details to get started
           </p>
 
           {error && (
-            <div className="mb-6 p-4 bg-red-100 text-red-700 rounded-lg">
+            <div className="mb-6 p-4 rounded-lg bg-[color:var(--danger)]/15 text-[var(--danger)]">
               {error}
             </div>
           )}
@@ -131,14 +131,14 @@ export function SignupPage({ setIsLoggedIn, setCurrentUser }) {
 
             {/* ROLE */}
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-2">
+              <label className="block text-sm font-medium text-[var(--gray-700)] mb-2">
                 Role *
               </label>
               <select
                 name="role"
                 value={formData.role}
                 onChange={handleChange}
-                className="w-full border rounded-lg px-4 py-3"
+                className="w-full border border-[var(--border-light)] bg-[var(--background)] text-[var(--text)] rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
               >
                 <option value="">Select role</option>
                 <option value="admin">Admin</option>
@@ -151,7 +151,7 @@ export function SignupPage({ setIsLoggedIn, setCurrentUser }) {
               name="name"
               placeholder="Full Name"
               onChange={handleChange}
-              className="w-full border rounded-lg px-4 py-3"
+              className="w-full border border-[var(--border-light)] bg-[var(--background)] text-[var(--text)] rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
             />
 
             {/* EMAIL */}
@@ -160,7 +160,7 @@ export function SignupPage({ setIsLoggedIn, setCurrentUser }) {
               type="email"
               placeholder="Email Address"
               onChange={handleChange}
-              className="w-full border rounded-lg px-4 py-3"
+              className="w-full border border-[var(--border-light)] bg-[var(--background)] text-[var(--text)] rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
             />
 
             {/* PASSWORD */}
@@ -169,7 +169,7 @@ export function SignupPage({ setIsLoggedIn, setCurrentUser }) {
               type="password"
               placeholder="Password"
               onChange={handleChange}
-              className="w-full border rounded-lg px-4 py-3"
+              className="w-full border border-[var(--border-light)] bg-[var(--background)] text-[var(--text)] rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
             />
 
             {/* STRENGTH BAR */}
@@ -177,7 +177,7 @@ export function SignupPage({ setIsLoggedIn, setCurrentUser }) {
               {[...Array(4)].map((_, i) => (
                 <div
                   key={i}
-                  className={`h-2 flex-1 rounded ${i < passwordStrength ? getStrengthColor() : "bg-gray-300"}`}
+                  className={`h-2 flex-1 rounded ${i < passwordStrength ? getStrengthColor() : "bg-[var(--gray-200)]"}`}
                 />
               ))}
             </div>
@@ -188,19 +188,19 @@ export function SignupPage({ setIsLoggedIn, setCurrentUser }) {
               type="password"
               placeholder="Confirm Password"
               onChange={handleChange}
-              className="w-full border rounded-lg px-4 py-3"
+              className="w-full border border-[var(--border-light)] bg-[var(--background)] text-[var(--text)] rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
             />
 
             <button
               disabled={loading}
-              className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 rounded-lg"
+              className="w-full bg-[var(--primary)] hover:opacity-95 text-white font-semibold py-3 rounded-lg"
             >
               {loading ? "Creating..." : "Create Account"}
             </button>
 
-            <p className="text-center text-sm text-slate-500">
+            <p className="text-center text-sm text-[var(--gray-700)]">
               Already have an account?{" "}
-              <Link to="/login" className="text-blue-500 font-medium">
+              <Link to="/login" className="text-[var(--primary)] font-medium hover:underline">
                 Sign In
               </Link>
             </p>

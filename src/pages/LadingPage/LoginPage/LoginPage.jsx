@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./LoginPage.css";
+import "../SignupPage/SignupPage.jsx";
 
 export function LoginPage({ setIsLoggedIn, setCurrentUser }) {
   const [email, setEmail] = useState("");
@@ -117,7 +119,15 @@ export function LoginPage({ setIsLoggedIn, setCurrentUser }) {
               >
                 {loading ? "Signing in..." : "Sign In"}
               </button>
-
+              <p className="text-center text-gray-600 dark:text-gray-400 text-sm mt-6">
+                don't have an account?{" "}
+                <Link
+                  to="/signup"
+                  className="text-blue-500 dark:text-blue-400 hover:text-blue-600 dark:hover:text-blue-300 font-semibold transition-colors"
+                >
+                  Sign Up
+                </Link>
+              </p>
             </form>
 
           </div>

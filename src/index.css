@@ -32,11 +32,11 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
 }
 
 :root[data-theme="light"] {
-	--text: #011623;
-	--background: #f5fbff;
-	--primary: #1892f7;
-	--secondary: #8983fb;
-	--accent: #7e4ef9;
+	--text: #191017;
+	--background: #f7edf5;
+	--primary: #751f61;
+	--secondary: #ed73d0;
+	--accent: #e203ae;
 	--gray-100: #f9fafb;
 	--gray-200: #f3f4f6;
 	--gray-700: #374151;
@@ -50,11 +50,11 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
 }
 
 :root[data-theme="dark"] {
-	--text: #dcf1fe;
-	--background: #00060a;
-	--primary: #0883e7;
-	--secondary: #0a047c;
-	--accent: #3706b1;
+	--text: #eee5ec;
+	--background: #10070e;
+	--primary: #e08acc;
+	--secondary: #8d1270;
+	--accent: #fb1bc7;
 	--gray-100: #1a1f2e;
 	--gray-200: #2d3748;
 	--gray-700: #cbd5e1;

@@ -18,7 +18,7 @@ export function LPServices() {
       
       <div className="services-container">
         <h1>Our Services</h1>
-        <p className="services-intro">Comprehensive solutions for your business needs</p>
+        <p className="services-intro">Indulge in our premium beauty services tailored for your unique style</p>
 
         <div className="services-grid">
           {services.map(service => (

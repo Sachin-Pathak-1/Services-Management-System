@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Layout } from "./Layout";
 import { Footer } from "../components/Footer";
 
 export function Settings() {
@@ -19,7 +18,6 @@ export function Settings() {
     const toggleTheme = () => setTheme((t) => (t === 'light' ? 'dark' : 'light'));
 
     return (
-        <Layout>
             <div className="min-h-screen w-full px-4 py-10">
                 <div className="max-w-5xl mx-auto">
                     <header className="mb-8">
@@ -120,6 +118,5 @@ export function Settings() {
                     </div>
                 </div>
             </div>
-        </Layout>
     );
 }

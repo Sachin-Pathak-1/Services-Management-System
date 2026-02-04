@@ -5,11 +5,10 @@ const User = require("../models/User");
 
 const router = express.Router();
 
-
 // ===== SIGNUP =====
 router.post("/signup", async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, role } = req.body;
 
     if (!name || !email || !password) {
       return res.status(400).json({ message: "All fields required" });
@@ -22,21 +21,37 @@ router.post("/signup", async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    await User.create({
+    const user = await User.create({
       name,
       email,
       password: hashedPassword,
+      role: role || "staff"   // ✅ default role
     });
 
-    res.json({ message: "Signup successful" });
+    const token = jwt.sign(
+      { id: user._id },
+      "mysecretkey",
+      { expiresIn: "7d" }
+    );
 
-  } catch {
+    res.json({
+      message: "Signup successful",
+      token,
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role
+      }
+    });
+
+  } catch (err) {
+    console.error(err);
     res.status(500).json({ message: "Server error" });
   }
 });
 
-
-// ===== LOGIN (ADD THIS BELOW, DO NOT DELETE ABOVE) =====
+// ===== LOGIN =====
 router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -55,9 +70,19 @@ router.post("/login", async (req, res) => {
       { expiresIn: "7d" }
     );
 
-    res.json({ token });
+    // ✅ Send user info including role
+    res.json({
+      token,
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role
+      }
+    });
 
-  } catch {
+  } catch (err) {
+    console.error(err);
     res.status(500).json({ message: "Server error" });
   }
 });

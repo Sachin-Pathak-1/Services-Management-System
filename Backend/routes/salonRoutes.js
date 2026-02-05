@@ -46,28 +46,22 @@ router.post("/add", async (req, res) => {
   }
 });
 
-/* ============================
-   GET ALL SALONS
-============================ */
-router.get("/get", async (req, res) => {
-  try {
-        const salons = await Salon.findById(req.salonId);
-        res.json({
-          name: salons.name,
-          address: salons.address,
-          contact: salons.contact,
 
-          email: salons.email,
-          ownerName: salons.ownerName,
-          openingTime: salons.openingTime,
-          closingTime: salons.closingTime,
-          logo: salons.logo
-        });
-  }
-  catch(err ){
-    res.status(500).json({ message: "Server error"});
+// GET ALL SALONS
+router.get("/details", async (req, res) => {
+  try {
+    const salons = await Salon.find(); // array
+
+    if (!salons.length) {
+      return res.status(404).json({ message: "No salons found" });
+    }
+
+    res.json(salons);
+  } catch (err) {
+    res.status(500).json({ message: "Server error" });
   }
 });
+
 
 /* ============================
    UPDATE SALON

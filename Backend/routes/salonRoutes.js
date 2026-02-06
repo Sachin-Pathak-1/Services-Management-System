@@ -46,22 +46,27 @@ router.post("/add", async (req, res) => {
   }
 });
 
-
-// GET ALL SALONS
-router.get("/details", async (req, res) => {
+/* ============================
+   GET ALL SALONS
+============================ */
+router.get("/", async (req, res) => {
   try {
-    const salons = await Salon.find(); // array
-
-    if (!salons.length) {
-      return res.status(404).json({ message: "No salons found" });
-    }
-
+    const salons = await Salon.find().sort({ createdAt: -1 });
     res.json(salons);
   } catch (err) {
     res.status(500).json({ message: "Server error" });
   }
 });
 
+// Backward-compatible alias
+router.get("/get", async (req, res) => {
+  try {
+    const salons = await Salon.find().sort({ createdAt: -1 });
+    res.json(salons);
+  } catch (err) {
+    res.status(500).json({ message: "Server error" });
+  }
+});
 
 /* ============================
    UPDATE SALON

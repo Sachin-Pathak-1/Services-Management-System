@@ -88,6 +88,16 @@ export function FloatingSideBar({ currentUser }) {
           </li>
         )}
 
+        {/* PLANS (ADMIN ONLY) */}
+        {isAdmin && (
+          <li>
+            <Link to="/plans">
+              <span className="icon">📦</span>
+              {!collapsed && "Plans"}
+            </Link>
+          </li>
+        )}
+
         {/* BILLING (ADMIN ONLY) */}
         {isAdmin && (
           <li>

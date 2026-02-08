@@ -49,6 +49,7 @@ export function Settings() {
 
   const [salons, setSalons] = useState([]);
   const [form, setForm] = useState(emptyForm);
+  const [planInfo, setPlanInfo] = useState(null);
 
   const [showForm, setShowForm] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
@@ -60,10 +61,6 @@ export function Settings() {
 
   /* ================= LOAD SALONS ================= */
 
-  useEffect(() => {
-    fetchSalons();
-  }, []);
-
   const fetchSalons = async () => {
     const res = await api.get("/salons/get");
     let list = res.data || [];
@@ -73,6 +70,20 @@ export function Settings() {
 
     setSalons(list);
   };
+
+  const fetchPlanInfo = async () => {
+    try {
+      const res = await api.get("/plans/selection");
+      setPlanInfo(res.data || null);
+    } catch {
+      setPlanInfo(null);
+    }
+  };
+
+  useEffect(() => {
+    fetchSalons();
+    fetchPlanInfo();
+  }, []);
 
   /* ================= DRAG & SAVE ORDER ================= */
 
@@ -132,16 +143,22 @@ export function Settings() {
       });
     }
 
-    if (editingId) {
-      await api.put(`/salons/${editingId}`, payload);
-      showToast("Salon updated");
-    } else {
-      await api.post("/salons/add", payload);
-      showToast("Salon added");
+    try {
+      if (editingId) {
+        await api.put(`/salons/${editingId}`, payload);
+        showToast("Salon updated");
+      } else {
+        await api.post("/salons/add", payload);
+        showToast("Salon added");
+      }
+    } catch (err) {
+      showToast(err?.response?.data?.message || "Failed to save salon");
+      return;
     }
 
     setShowForm(false);
     fetchSalons();
+    fetchPlanInfo();
   };
 
   /* ================= DELETE ================= */
@@ -152,6 +169,7 @@ export function Settings() {
     showToast("Salon deleted");
     setShowDetails(false);
     fetchSalons();
+    fetchPlanInfo();
   };
 
   /* ================= UI ================= */
@@ -207,6 +225,80 @@ export function Settings() {
               ✅ Reopen All
             </button>
           </div>
+        </div>
+        {/* PLAN USAGE */}
+        <div className="bg-(--gray-100) p-6 rounded-2xl mb-8 border border-(--border-light)">
+          <div className="flex items-center justify-between flex-wrap gap-3 mb-4">
+            <h2 className="text-lg font-semibold">Plan Usage</h2>
+            {planInfo?.selectedPlan && (
+              <span className="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-600">
+                {planInfo.selectedPlan.name}
+              </span>
+            )}
+          </div>
+
+          {planInfo?.selectedPlan ? (
+            <>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-5">
+                <div className="bg-(--background) border border-(--border-light) rounded-xl p-4">
+                  <div className="text-xs opacity-70">Salons Added</div>
+                  <div className="text-2xl font-bold">
+                    {planInfo.salonsAdded}
+                  </div>
+                </div>
+                <div className="bg-(--background) border border-(--border-light) rounded-xl p-4">
+                  <div className="text-xs opacity-70">Plan Limit</div>
+                  <div className="text-2xl font-bold">
+                    {planInfo.salonLimit}
+                  </div>
+                </div>
+                <div className="bg-(--background) border border-(--border-light) rounded-xl p-4">
+                  <div className="text-xs opacity-70">Remaining</div>
+                  <div className="text-2xl font-bold text-emerald-600">
+                    {planInfo.salonsRemaining}
+                  </div>
+                </div>
+              </div>
+
+              <div className="h-2 w-full bg-black/10 rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-emerald-500"
+                  style={{
+                    width: `${Math.min(
+                      (planInfo.salonsAdded / (planInfo.salonLimit || 1)) * 100,
+                      100
+                    )}%`
+                  }}
+                />
+              </div>
+              <div className="mt-2 text-xs opacity-70">
+                {planInfo.salonsAdded} of {planInfo.salonLimit} salons used
+              </div>
+
+              <div className="mt-5 grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-(--text)">
+                <div className="bg-(--background) border border-(--border-light) rounded-xl p-4">
+                  <div className="text-xs opacity-70">Price Per Branch</div>
+                  <div className="font-semibold">Rs. {planInfo.pricePerBranch}</div>
+                </div>
+                <div className="bg-(--background) border border-(--border-light) rounded-xl p-4">
+                  <div className="text-xs opacity-70">Total Price</div>
+                  <div className="font-semibold">Rs. {planInfo.totalPrice}</div>
+                </div>
+                <div className="bg-(--background) border border-(--border-light) rounded-xl p-4">
+                  <div className="text-xs opacity-70">Selected On</div>
+                  <div className="font-semibold">
+                    {planInfo.selectedPlanAt
+                      ? new Date(planInfo.selectedPlanAt).toLocaleDateString()
+                      : "N/A"}
+                  </div>
+                </div>
+              </div>
+            </>
+          ) : (
+            <div className="text-sm text-(--text)">
+              No plan selected yet. Choose a plan to enable salon limits.
+            </div>
+          )}
         </div>
 
         {/* SALON CARDS */}

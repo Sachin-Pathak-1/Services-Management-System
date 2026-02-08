@@ -60,6 +60,28 @@ const userSchema = new mongoose.Schema({
     default: "active"
   },
 
+  // ✅ PLAN SELECTION (ADMIN ONLY)
+  selectedPlanId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Plan",
+    default: null
+  },
+
+  planBranchLimit: {
+    type: Number,
+    default: 0
+  },
+
+  planPricePerBranch: {
+    type: Number,
+    default: 0
+  },
+
+  selectedPlanAt: {
+    type: Date,
+    default: null
+  },
+
   joiningDate: {
     type: Date,
     default: Date.now

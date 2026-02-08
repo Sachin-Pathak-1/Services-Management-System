@@ -2,6 +2,7 @@ const auth = require("../middleware/auth");
 const admin = require("../middleware/admin");
 const express = require("express");
 const Salon = require("../models/Salon");
+const User = require("../models/User");
 
 const router = express.Router();
 
@@ -37,6 +38,27 @@ router.post("/add", auth, admin, async (req, res) => {
       return res.status(400).json({
         message: "Name, address and contact required"
       });
+    }
+
+    const adminUser = await User.findById(req.userId);
+    if (!adminUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    if (!adminUser.selectedPlanId || adminUser.planBranchLimit < 1) {
+      return res.status(403).json({
+        message: "Select a plan before adding salons"
+      });
+    }
+
+    const salonLimit = adminUser.planBranchLimit || 0;
+    if (salonLimit > 0) {
+      const existing = await Salon.countDocuments({ adminId: req.userId });
+      if (existing >= salonLimit) {
+        return res.status(403).json({
+          message: "Salon limit reached for your selected plan"
+        });
+      }
     }
 
     // Only one primary salon
